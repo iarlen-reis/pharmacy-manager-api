@@ -2,6 +2,8 @@ package com.remedy.iarlen.course.Remedy;
 
 import java.time.LocalDate;
 
+import com.remedy.iarlen.course.models.RemedyModel;
+
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
@@ -26,5 +28,16 @@ public record RemedyDTO(
 
   @Enumerated
   Laboratory laboratory
+
   ) {
+
+    public RemedyDTO(RemedyModel data) {
+        this(
+            data.getName(),
+            data.getVia(),
+            data.getBatch(),
+            data.getAmount(),
+            data.getValidity(),
+            data.getLaboratory());
+    }
 }

@@ -11,7 +11,9 @@ public record RemedyWithIdDTO(
     LocalDate validity,
     int amount,
     String batch,
-    Laboratory laboratory) {
+    Laboratory laboratory,
+    boolean active
+    ) {
 
   public RemedyWithIdDTO(RemedyModel remedy) {
     this(
@@ -21,6 +23,8 @@ public record RemedyWithIdDTO(
         remedy.getValidity(),
         remedy.getAmount(),
         remedy.getBatch(),
-        remedy.getLaboratory());
+        remedy.getLaboratory(),
+        remedy.isActive()        
+        );
   }
 }
