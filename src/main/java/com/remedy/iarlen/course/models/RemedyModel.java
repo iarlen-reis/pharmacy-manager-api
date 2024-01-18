@@ -34,6 +34,8 @@ public class RemedyModel {
 
     @Enumerated(EnumType.STRING)
     private Laboratory laboratory;
+    
+    private boolean active;
 
     public RemedyModel(RemedyDTO data) {
         this.name = data.name();
@@ -42,6 +44,7 @@ public class RemedyModel {
         this.laboratory = data.laboratory();
         this.validity = data.validity();
         this.batch = data.batch();
+        this.active = true;
     }
 
     public void updateData(RemedyDTO data) {
@@ -51,5 +54,13 @@ public class RemedyModel {
         this.laboratory = data.laboratory();
         this.validity = data.validity();
         this.batch = data.batch();
+    }
+
+    public void deactivate() {
+        this.active = false;
+    }
+
+    public void reactivate() {
+        this.active = true;
     }
 }
