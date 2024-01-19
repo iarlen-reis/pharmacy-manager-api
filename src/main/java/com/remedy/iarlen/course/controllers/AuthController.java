@@ -21,6 +21,7 @@ public class AuthController {
     @Autowired
     private AuthenticationManager manager;
 
+
     @Autowired
     private TokenService tokenService;
 

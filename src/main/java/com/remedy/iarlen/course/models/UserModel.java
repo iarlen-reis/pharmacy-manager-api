@@ -1,5 +1,6 @@
 package com.remedy.iarlen.course.models;
 
+import com.remedy.iarlen.course.User.CreateUserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +25,11 @@ public class UserModel implements UserDetails {
     private String username;
     @Getter
     private String password;
+
+    public UserModel(CreateUserDTO data) {
+        this.username = data.username();
+        this.password = data.password();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
