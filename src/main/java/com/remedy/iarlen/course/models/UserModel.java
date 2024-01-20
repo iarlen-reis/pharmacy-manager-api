@@ -1,6 +1,7 @@
 package com.remedy.iarlen.course.models;
 
 import com.remedy.iarlen.course.User.CreateUserDTO;
+import com.remedy.iarlen.course.User.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,19 +22,24 @@ public class UserModel implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Getter
     private String username;
-    @Getter
     private String password;
 
-    public UserModel(CreateUserDTO data) {
-        this.username = data.username();
-        this.password = data.password();
+    private UserRole role;
+
+    public UserModel(String username, String password, UserRole role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("USER"));
+        if(this.role == UserRole.ADMIN) {
+            return List
+                    .of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
