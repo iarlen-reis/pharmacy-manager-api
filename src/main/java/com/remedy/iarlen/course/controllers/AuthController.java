@@ -4,6 +4,7 @@ import com.remedy.iarlen.course.Auth.AuthDTO;
 import com.remedy.iarlen.course.Auth.AuthResponseDTO;
 import com.remedy.iarlen.course.models.UserModel;
 import com.remedy.iarlen.course.services.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class AuthController {
     @Autowired
     private TokenService tokenService;
 
+    @Operation(summary = "This method is used to sign a user with username and password.")
     @PostMapping
     public ResponseEntity<?> create(@RequestBody @Valid AuthDTO user) {
         var token = new UsernamePasswordAuthenticationToken(user.username(), user.password());

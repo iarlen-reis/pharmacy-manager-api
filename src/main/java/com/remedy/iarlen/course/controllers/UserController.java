@@ -6,6 +6,7 @@ import com.remedy.iarlen.course.User.ResponseUserDTO;
 import com.remedy.iarlen.course.User.UpdateUserDTO;
 import com.remedy.iarlen.course.models.UserModel;
 import com.remedy.iarlen.course.repositories.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class UserController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Operation(summary = "This method is used to create a user.")
     @PostMapping
     public ResponseEntity<ResponseUserDTO> createUser(@RequestBody @Valid CreateUserDTO data) {
 
@@ -32,24 +34,24 @@ public class UserController {
                     .body(new ResponseUserDTO("Usuário já existente."));
         }
 
-        UserModel user = new UserModel(data);
+        UserModel user = new UserModel(data.username(), data.password(), data.role());
 
         String encodedPassword = passwordEncoder.encode(data.password());
         user.setPassword(encodedPassword);
 
-        UserModel userCreated = this.userRepository.save(user);
-
-        System.out.println(userCreated);
+        this.userRepository.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseUserDTO("Usuário criado com sucesso!"));
     }
 
+    @Operation(summary = "This method is used to get current user.")
     @GetMapping
     public ResponseEntity<GetUserDTO> getUser(@AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.status(HttpStatus.OK).body(new GetUserDTO(userDetails.getUsername()));
+        return ResponseEntity.status(HttpStatus.OK).body(new GetUserDTO(userDetails.getUsername(), userDetails.getAuthorities().toString()));
     };
 
+    @Operation(summary = "This method is used to update user password.")
     @PutMapping
     public ResponseEntity<ResponseUserDTO> updateUser(
             @AuthenticationPrincipal UserDetails userDetails, @RequestBody @Valid UpdateUserDTO data) {
@@ -71,6 +73,7 @@ public class UserController {
         return ResponseEntity.ok().body(new ResponseUserDTO("Senha atualizada com sucesso!"));
     };
 
+    @Operation(summary = "This method is used to current user delete your account.")
     @DeleteMapping
     public ResponseEntity<ResponseUserDTO> deleteUser(@AuthenticationPrincipal UserDetails userDetails) {
         UserModel user = (UserModel) this.userRepository.findByUsername(userDetails.getUsername());
