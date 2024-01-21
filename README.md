@@ -41,6 +41,15 @@ Segredo para gerar o token jwt:
 `api.security.token.secret=`
 
 
+## Rodando os testes
+
+Para rodar os testes, rode o seguinte comando
+
+```bash
+  mvn test
+```
+
+
 ## Remédios
 Usuário com permissão de ADMIN, podem criar, atualizar, deletar, desabilitar e habilitar um remédio. Ele também pode promover outros usuários a administrador.
 
@@ -93,12 +102,6 @@ Para acessar qualquer recurso relacionado aos remédios o usuário deve está au
 | `token do usuário`      | `string` | **Obrigatório**. 
 `oldPassword` | `string` | Senha antiga do usuário.
 `newPassword` | `string` | Nova senha
-
-
-
-
-
-
 
 
 ## Rotas de remédios
@@ -191,12 +194,7 @@ Para acessar qualquer recurso relacionado aos remédios o usuário deve está au
 | `token do usuário`      | `string` | **Obrigatório**. 
 
 
-## Melhorias
-
-- Adicionar testes unitários.
-
-
 ## Stack utilizada
 
-**Back-end:** Spring, Spring security, JPA, Flaway, Loombok, Java JWT, Swagger.
+**Back-end:** Spring, Spring security, Spring test, JPA, Flaway, Loombok, Java JWT, Swagger.
 
