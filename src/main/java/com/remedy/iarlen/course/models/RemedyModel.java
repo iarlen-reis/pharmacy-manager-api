@@ -47,6 +47,16 @@ public class RemedyModel {
         this.active = true;
     }
 
+    public RemedyModel(String name, int amount, Via via, Laboratory laboratory, LocalDate validity, String batch) {
+        this.name = name;
+        this.amount = amount;
+        this.via = via;
+        this.laboratory = laboratory;
+        this.validity = validity;
+        this.batch = batch;
+        this.active = true;
+    }
+
     public void updateData(RemedyDTO data) {
         this.name = data.name();
         this.amount = data.amount();
