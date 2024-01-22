@@ -1,0 +1,23 @@
+version: "3"
+services:
+  springboot-app:
+    container_name: spring-pharmacy
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_HOST:
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+      MYSQL_PORT:
+
+  mysqldb:
+    container_name: mysqldb
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: remedy-api
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_LOG_CONSOLE: "true"
+      MYSQL_LOG_ERROR: "/var/log/mysql/error.log"
